@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>各种经典代码</title>
+</head>
+<body>
+        <!-- <style type="text/css">
+            .attr {
+                width: 50%;
+                height: 0;
+                padding-bottom: 50%;
+                background-color: #008b57;
+            }
+            </style>
+              <div class='attr'>
+                </div> -->
+
+    <!-- <input type="button" id="button"> -->
+</body>
+<script>
+    // 正则
+    // var files = ['./src/webapp/views/hello/hello-index.entry.js',
+    // './src/webapp/views/users/users-index.entry.js']
+    // let _entry ={}
+    // for(let item of files){
+    //     // console.log(item);
+    //     item.replace(/.+\/([a-zA-Z]+-[a-zA-Z]+)(\.entry\.js$)/g,(match,$2)=>{_entry[$2]=item})
+    // }
+    // console.log(_entry)
+
+    //事件监听
+    // var button = document.getElementById('button');
+    // button.addEventListener('click',test1);
+    // button.addEventListener('click',test2);
+    // // button.removeEventListener('click',test2);
+    // function test1(){
+    //     alert(1)
+    // }
+    // function test2(){
+    //     alert(2)
+    // }
+
+    //es5 继承
+    // function Car (color,price){
+    //     this.color=color;
+    //     this.price=price;
+    // }
+    // Car.prototype.sell = function(){
+    //     console.log(`将${this.color}色的车以${this.price}的价格卖出`);
+    // }
+    // function Cruze(color,price){
+    //     Car.apply(this,[color,price]);
+    // }
+    // var _prop = Object.create(Car.prototype);
+    // _prop.constructor = Cruze;
+    // Cruze.prototype = _prop;
+
+    // var cru = new Cruze('紫','100块');
+    // cru.sell();
+    
+    //es6继承
+    // class Car{
+    //     constructor(color,price){
+    //         this.color=color;
+    //         this.price=price;
+    //     }
+    //     sell(){
+    //         console.log(`将${this.color}色的车以${this.price}的价格卖出`);
+    //     }
+
+    // }
+    // class Cruze extends Car{
+    //     constructor(color,price){
+    //         super(color,price)
+    //     }
+    //     sell(){
+    //         super.sell()
+    //     }
+    // }
+    // let cru = new Cruze('红','一百块');
+    // cru.sell();
+
+    //类数组转数组
+    // function argToArr(){
+    //     var arr = [].slice.apply(arguments);
+    //     console.log(arguments);
+    //     console.log(arr);
+    // }
+    // argToArr(1,2,3,4,5);
+
+    // 验证是否是数组
+    // function isArray(arr){
+    //     if(Object.prototype.toString.apply(arr)=='[object Array]'){
+    //         console.log(arr+'是数组')
+    //     }
+    //     else{
+    //         console.log(arr+'不是数组')
+    //     }
+    // }
+    // isArray({1:1});
+    // isArray([1,2,3]);
+    // isArray(1);
+
+    //数组追加
+    // var arr1 = [0,1,2];
+    // var arr2=[3,4,5];
+    // arr1.push.apply(arr1,arr2);
+    // console.log(arr1)
+
+
+    //冒泡排序
+    // function bubbleSort(arr){
+    //     for(var i=0;i<arr.length-1;i++){
+    //         for(var j=i+1;j<arr.length;j++){
+    //             if(arr[i]>arr[j]){
+    //                 var temp = arr[i];
+    //                 arr[i]=arr[j];
+    //                 arr[j]=temp;
+    //             }
+    //         }
+    //     }
+    //     return arr;
+    // }
+    // console.log(bubbleSort([42,1,5,6,4,21,13]))
+
+    //选择排序
+    // function selectSort(arr){
+    //     var min;
+    //     for(var i = 0;i<arr.length-1;i++){
+    //         min = i;
+    //         for(var j = i+1;j<arr.length;j++){
+    //             if(arr[j]<arr[min]){
+    //                 min = j;
+    //             }
+    //         }
+    //         var temp = arr[i];
+    //                 arr[i]=arr[min];
+    //                 arr[min]=temp;
+    //     }
+    //     return arr;
+    // }
+    // console.log(selectSort([42,13,5,6,45,21,133]))
+
+    //插入排序
+    // function insertSort(arr){
+    //     var temp, inner;
+    //     for(var i = 1;i<arr.length;i++){
+    //         temp=arr[i];
+    //         inner = i;
+    //         while(inner>0&&(arr[inner-1]>=temp)){
+    //             arr[inner]=arr[inner-1];
+    //             console.log('内部数据',arr);
+    //             inner--
+    //         }
+    //         arr[inner]=temp;
+    //         console.log('数据',arr)
+    //     }
+    // }
+    // console.log(insertSort([42,13,5,6,45,21,133]))
+
+    //快速排序
+    // function qSort(arr){
+    //     if(arr.length==0){
+    //         return [];
+    //     }
+    //     //选择第一项为基准值
+    //     var pivot = arr[0];
+    //     //比基准值小的数组
+    //     var lesser = [];
+    //     //比基准值大的数组
+    //     var greater = [];
+    //     for(var i = 1;i<arr.length;i++){
+    //         if(arr[i]<pivot){
+    //             lesser.push(arr[i]);
+    //         }else{
+    //             greater.push(arr[i]);
+    //         }
+    //     }
+    //     //迭代，返回的是数组的拼接（完整的数组，以空间换时间）
+    //     return qSort(lesser).concat(pivot,qSort(greater));
+    // }
+    // console.log(qSort([42,13,5,6,45,21,133]))
+
+    //斐波那契数列(非递归)
+    // function fb(n){
+    //     var oldNum =1;
+    //     var newNum = 1;
+    //     if(n==1||n==2){
+    //         return 1;
+    //     }else{
+    //         for(var i = 3;i<=n;i++){
+    //             var tmp = oldNum;
+    //             oldNum = newNum;
+    //             newNum = tmp+newNum;
+    //         }
+    //         return newNum;
+    //     }
+    // }
+    //斐波那契数列(递归)
+    // function fb(n)  {  
+    //     if(n==1||n==2) {
+    //         return 1;
+    //     }  
+    //     else {
+    //         return fb(n-2)+fb(n-1);  
+    //     }        
+    // }  
+    // console.log(fb(8))
+
+    //
+    var s = [];
+    var arr = s;
+    for(var i = 0 ;i<3;i++){
+        var pusher = {
+            value : 'item'+i
+        },tmp;
+        if(i!=2){
+            tmp=[];
+            pusher.childern = tmp;
+        }
+        arr.push(pusher);
+        arr=tmp;
+    }
+    console.log(s[0])
+</script>
+</html>
