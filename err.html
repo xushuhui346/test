@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img src="./404.png" alt="">
+    <script>
+
+        //捕获异步异常
+        // window.onerror=function(msg,url,row,col,error){
+        //     console.log(1111)
+        //     console.log({
+        //         msg,
+        //         url,
+        //         row,
+        //         col,
+        //         error
+        //     })
+        // }
+
+        // err;
+        // setTimeout(() => {
+        //     err;
+        // });
+        // try {
+        //     var arr = 1
+        //     setTimeout(() => {
+        //         error
+        //     });
+        // } catch (e) {
+        //     console.log('感知不到');
+        //     console.log(e)
+        // }
+
+
+        //捕获404
+        // window.addEventListener('error',(msg,url,row,col,error)=>{
+        //     console.log('我知道４０４错误');
+        //     console.log(msg,url,row,col,error)
+        //     return true;
+        // },true);
+
+        
+        //promise错误捕获
+        // window.addEventListener('unhandledrejection',function(e){
+        //     e.preventDefault();
+        //     console.log('我知道promise的错误了');
+        //     console.log(e.reason);
+        //     return true;
+        // })
+        // Promise.reject('promise error');
+        // new Promise((resolve,reject)=>{
+        //     reject('promise error')
+        // })
+        // new Promise((resolve)=>{
+        //     resolve();
+        // }).then(()=>{
+        //     throw new Error('promise error')
+        //     alert(1)
+            // alert(new Error('promise error'))
+            // var a =5
+        // })
+        </script>
+        <script>
+            // alert(a)
+        // console.log(2)
+        </script>
+</body>        
+</html>
