@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>试卷一代码</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+<script>
+    /*
+    1.IIFE 第一行考点用了一个+号 ，其实就是把函数变成函数表达式，直接执行function() {
+    }();会报错。常用的写法是( function(){} )(),此时其实创建了闭包。 
+    2.变量与函数提升，但此时函数的名字也是a变量也是a,所以会造成 function a(){}，var a。此时
+    var a因为未被定义所以被忽略了。所以顶部的输出值是2和2.接下来输出是1和1，是因为函数的
+    提升要比变量提升的更前。局面就是var a,function a(){},a=function(){};alert(a)
+    3.作用域和连等问题 此时的var c = d= a。实际是 d = a,var c=d;所以c是undefined，但是要千
+    万注意是不是严格模式下。扩展的题为var a = {n:1}; var b = a; a.x = a = {n:2}; 
+    alert(a.x);// --> undefined alert(b.x);// --> {n:2}  
+    */
+
+    // +function(){
+    //     alert(a);
+    //     a();
+    //     var a = function(){
+    //         console.log(1);
+    //     }
+    //     function a(){
+    //         console.log(2)
+    //     }
+    //     alert(a);
+    //     a();
+    //     var c = d = a;
+    // }();
+    // alert(d);
+    // alert(c);
+
+
+
+    /**/
+    /*var a = {n:1};
+    var b = a;
+    a.x = a = {n:2};
+    console.log(a);  //{n:2}
+    console.log(b);     //{n:1,x:{n:2}}
+    alert(a.x);   //undefined
+    alert(b.x);     //{n:2}  */
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+    /*
+    1.this指向问题。万万需要注意this的值是在执行的时候才能确认，定义的时候不能确认！ 用老袁
+    的话呢就是this是个赖皮虫谁调用我指谁，没人管就指window（注意严格模式）。还有就是this
+    能被修改，怎么改呢call apply bind 还有es6的箭头函数。
+    2.原型链的基础。当一个函数做当做类使用的时候，原型链里this对属性的赋值优先级要低于构造
+    函数内部的指向。
+    3.在面试的时候经常面试官会迷惑你this的情况，要分析最后this再没执行前的作用域到底在哪。
+    */
+       /* this.a = 20;
+        var test = {
+            a: 40,
+            init:()=> {
+                console.log(this.a);
+                function go() {
+                    console.log(this.a);
+                }
+                    go.prototype.a = 50;
+                    return go; 
+            }
+        };
+        new(test.init())();   //20   50*/
+
+
+        /*this.a = 20;
+        var test = {
+            a: 40,
+            init:()=> {
+                console.log(this.a);
+                function go() {
+                    this.a = 60;
+                    console.log(this.a);
+                }
+                    go.prototype.a = 50;
+                    return go; 
+            }
+        };
+        var p = test.init();
+        p();     //20  60  */
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+        /*
+        1.闭包解决，闭包就是能够读取其他函数内部变量的函数。由于在javascript中，只有函数内部的
+        子函数才能读取局部变量，所以闭包可以理解成“定义在一个函数内部的函数“。在本质上，闭
+        包是将函数内部和函数外部连接起来的桥梁，用老袁的话是闭包是拿到了本不该是你的东西，不
+        用盲目的害怕闭包会造成内存泄露，用完=null就完事了。 还有要一阵见血的描述闭包的作用：函
+        数作为返回值、函数作为参数传递、保护变量。
+        2.块级作用域和函数级作用域，ES5没有块级作用域，只有全局作用域和函数作用域，全局作用域
+        就是最外层的作用域，ES6新增了块极作用域所以使用let即可。
+        3.最后我们巧妙的运用了this解决(this.innerHTML),在面试的时候经常面试官会迷惑你this的情况，
+        要分析最后this再没执行前的作用域到底在哪。
+        */
+
+        //方法1：es6 let 块级作用域
+        // var list_li = document.getElementsByTagName("li");
+        //     for (let i = 0; i < list_li.length; i++) {
+        //         list_li[i].onclick = function() {
+        //         console.log(i+1);
+        //     }
+        // }
+
+        //方法2：闭包
+        // var list_li = document.getElementsByTagName("li");
+        // for (var i = 0; i < list_li.length; i++) {
+        //     (function(i){
+        //         list_li[i].onclick = function() {
+        //         console.log(i+1);
+        //         }
+        //     })(i);
+        // }
+
+        //方法3：使用js innerHtml
+        // var list_li = document.getElementsByTagName("li");
+        // for (var i = 0; i < list_li.length; i++) {
+        //     list_li[i].onclick = function() {
+        //         console.log(this.innerHTML);
+        //     }
+        // }
+
+/*-----------------------------------------------------------------------------------------------------------*/
+    /*
+    1.值类型 vs 引用类型。值类型变量包括 Boolean、String、Number、Undefined、Null，引用
+    类型包括了 Object 类的所有，如 Date、Array、Function 等。在参数传递方式上，值类型是按
+    值传递，引用类型是按共享传递。
+    2.函数的参数是按值传递，但是该值引用的是外部m值得地址。所以首先函数test(m)和外边的m
+    没有任何关系，然后值引用外部值得地所以m.v=5l该题即是5,但是重写了m,内部的m引用了新地
+    址，所以是undefined。
+    3.我们来深入思考一下为什么JS要分为按值传递和按址（引用）传递呢。JS 中这种设计的原因是：
+    按值传递的类型，复制一份存入栈内存，这类类型一般不占用太多内存，而且按值传递保证了其
+    访问速度。按共享传递的类型，是复制其引用，而不是整个复制其值，保证过大的对象等不会因
+    为不停复制内容而造成内存的浪费。 
+    */
+
+    // function test(m) {
+    //     m = {v:5}
+    // }
+    // var m = {k: 30};
+    // test(m);
+    // console.log(m);
+    // alert(m.v);
+
+/*-----------------------------------------------------------------------------------------------------------*/
+/*
+    请在下面写出JavaScript面向对象编程的混合式继承。并写出ES6版本的继承。
+    要求：汽车是父类，Cruze是子类。父类有颜色、价格属性，有售卖的方法。Cruze子
+    类实现父类颜色是红色，价格是140000,售卖方法实现输出如下语句：将 红色的Cruze
+    买给了小王价格是14万。（20分）
+    1.原型和原型连。先来说一个__proto__? 图已经放到答案的最后了。
+    （1）所有的引用类型（数组、对象、函数），都具有对象特性，即可自由扩展属性（null除外）
+    （2）所有的引用类型（数组、对象、函数）都有一个__proto__属性，属性值是一个普通的对象
+    （3）所有的函数，都有一个prototype属性，属性值也是一个普通的对象
+    （4）所有引用类型（数组、对象、函数）__proto__属性值指向它的构造函数的prototype属性值
+    （5）__proto__（隐式原型）与prototype（显式原型）
+    2.call和apply的区别。改变对象的执行上下文，区别就是根据你要传入的参数来做选择，不需要
+    传参或者只有1个参数的时候，用call，当要传入多个对象时，用apply。
+    3.JavaScript constructor 和 Object.create()。constructor 属性返回对创建此对象的数组函数的
+    引用。 Object.create()方法会使用指定的原型对象及其属性去创建一个新的对象。 （副本！！）
+    4.ES6的新语法Class,这里我要问你一堆面向对象的东西了。什么是构造函数和析构函数、访问控
+    制（可见性）、对象继承、范围解析操作符 （::）、Static（静态）关键字、抽象类、对象接口、
+    重载。请问如何实现JavaScript的重载。ES6很简单直接执行super.同名方法()，然后再执行自己
+    的方法。ES5呢？（大家翻一下预读班课程，请默写）
+*/
+    //es5 继承
+    // function Car (color,price){
+    //     this.color=color;
+    //     this.price=price;
+    // }
+    // Car.prototype.sell = function(){
+    //     console.log(`将${this.color}色的车以${this.price}的价格卖出`);
+    // }
+    // function Cruze(color,price){
+    //     Car.apply(this,[color,price]);
+    // }
+    // var _prop = Object.create(Car.prototype);
+    // _prop.constructor = Cruze;
+    // Cruze.prototype = _prop;
+    // var cru = new Cruze('紫','100块');
+    // cru.sell();
+    
+    //es6继承
+    // class Car{
+    //     constructor(color,price){
+    //         this.color=color;
+    //         this.price=price;
+    //     }
+    //     sell(){
+    //         console.log(`将${this.color}色的车以${this.price}的价格卖出`);
+    //     }
+    // }
+    // class Cruze extends Car{
+    //     constructor(color,price){
+    //         super(color,price)
+    //     }
+    //     sell(){
+    //         super.sell()
+    //     }
+    // }
+    // let cru = new Cruze('红','一百块');
+    // cru.sell();
+
+
+/*-----------------------------------------------------------------------------------------------------------*/
+
+/*
+1.对ES6的理解。Array.from(a) 其实E6本身就是ES5的很多语法糖。
+2.对ES5的灵活运用。Array.prototype.slice.call 等等都可以。 
+3.直接用a.split(“”) 这个其实也就是个3毛钱的技术。
+*/
+// var a = 'ndoiwanindwa';
+// var b = Array.from(a);
+// var c = [].slice.call(a);
+// var d = a.split('')
+// console.log(b);
+// console.log(c);
+// console.log(d);
+
+/*-----------------------------------------------------------------------------------------------------------*/
+/*
+    这道题考的是JS的模拟指针移动问题。 
+*/
+// var s = [];
+// var arr = s;
+// for (var i = 0; i < 3; i++) {
+//     var pusher = {
+//         value: "item"+i
+//     },tmp;
+//     if (i !== 2) {
+//         tmp = []
+//         pusher.children = tmp
+//     }
+//     arr.push(pusher);
+//     arr = tmp;
+// }
+// console.log(s[0]);  //结果是对象里面还有对象，可以把代码运行看结果
+
+/*-----------------------------------------------------------------------------------------------------------*/
+/*
+
+*/
+    // var Container = function(x) {
+    //     this.__value = x;
+    // }
+    // Container.of = x => new Container(x);
+    // Container.prototype.map = function(f){
+    //     return Container.of(f(this.__value))
+    // }
+    // Container.of(3)
+    // .map(x => x + 1) 
+    // .map(x => 'Result is ' + x);
+
+    
+    // console.log( Container.of(3).map(x => x + 1) .map(x => 'Result is ' + x))
+    //结果： Container {__value: "Result is 4"}
+
+/*-----------------------------------------------------------------------------------------------------------*/
+/*
+   其实JS的基础知识还不止这些，比如ECMAScript 中定义了 6 种原始类型：Boolean、String、
+    Number、Null、Undefined、Symbol（ES6 新定义）注意：原始类型不包含 Object。  
+    题目：类型判断用到哪些方法？
+    typeof xxx得到的值有以下几种类型：undefined boolean number string object function、
+    symbol 。 这里需要注意的有三点：
+    (1) typeof null结果是object ，因为null也是一种引用类型，不是值类型
+    (2) typeof [1, 2]结果是object，结果中没有array这一项，引用类型除了function其他的全部都是
+    object、 typeof symbol 用typeof获取symbol类型的值得到的是symbol，这是 ES6 新增的知识点
+    (3) instanceof 用于实例和构造函数的对应。例如判断一个变量是否是数组，使用typeof无法判断，
+    但可以使用[1, 2] instanceof Array来判断。因为，[1, 2]是数组，它的构造函数就是Array。同理
+    function Foo(name) {
+    this.name = name
+    }
+    var foo = new Foo('bar')； console.log(foo instanceof Foo) // true...
+    最后问下为什么Object.prototype.toString.call([])== "[object Array]";最正确？?
+*/
+</script>
+</html>
