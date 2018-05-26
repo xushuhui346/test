@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圣杯双飞翼布局</title>
+    <style> 
+    /* 圣杯布局css */
+        .content1{
+            /* 把左右位置让出来 */
+            padding-left: 200px;   
+            padding-right: 200px;
+        }
+        .content1 .middle{
+            width: 100%;
+            height: 400px;
+            /* 浮动可以浮上去 */
+            float: left;
+            background: red;
+        }
+        .content1 .left{
+            width: 200px;
+            height: 400px;
+            /* 向左移动100%，跑到上面最左侧 */
+            margin-left: -100%;
+            float: left;
+            background:blueviolet;
+            /* 相对定位 回到最左侧 */
+            position: relative;
+            left:-200px;
+        }
+        .content1 .right{
+            width: 200px;
+            height: 400px;
+            float: left;
+            /* 向左移动自身宽度，跑到上面最右侧 */
+            margin-left: -200px;
+            background: chocolate;
+            /* 相对定位  回到最右侧*/
+            position: relative;
+            right:-200px;
+        }
+
+
+
+         /* 双飞翼布局css */
+
+         .content2{
+             /* 父元素遮盖，可以实现子元素不设高度，但根据子元素内容撑等高 */
+             overflow: hidden;
+        }
+        .content2 .middle{
+            width: 100%;
+            /* height: 400px; */
+            /* 浮动可以浮上去 */
+            float: left;
+           
+        }
+        .content2 .middle .inner{
+            margin-left: 200px;
+            margin-right: 200px;
+             /* 把盒子撑开，再把位置收回来 */
+             padding-bottom: 9999px;
+            margin-bottom: -9999px;
+            background: seagreen;
+        }
+        .content2 .left{
+            width: 200px;
+            /* height: 400px; */
+            /* 向左移动100%，跑到上面最左侧 */
+            margin-left: -100%;
+            float: left;
+            background:peachpuff;
+             /* 把盒子撑开，再把位置收回来 */
+             padding-bottom: 9999px;
+            margin-bottom: -9999px;
+            overflow: hidden;
+        }
+        .content2 .right{
+            width: 200px;
+            /* height: 400px; */
+            float: left;
+            /* 向左移动自身宽度，跑到上面最右侧 */
+            margin-left: -200px;
+            background: fuchsia;
+            /* 把盒子撑开，再把位置收回来 */
+            padding-bottom: 9999px;
+            margin-bottom: -9999px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 圣杯布局 html -->
+    <!-- <div class="content1">
+        <div class="middle">
+            中间
+        </div> 
+          <div class="left">
+            左
+        </div>
+        <div class="right">
+            右
+        </div>
+    </div> -->
+
+
+    <!-- 双飞翼布局 html -->
+    <div class="content2">
+            <div class="middle">
+                <div class="inner">
+                        中间
+                </div>
+            </div> 
+              <div class="left">
+                    左<br>
+                    左<br>
+                    左<br>
+                左
+            </div>
+            <div class="right">
+                右
+            </div>
+        </div>
+</body>
+</html>
