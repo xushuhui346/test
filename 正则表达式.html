@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    // String对象中支持正则表达式有4种方法，分别是：search、replace、match、split
+
+
+    //------------------------------search------------------------------------------------
+
+
+    // search()方法将在字符串str中检索与表达式regexp相匹配的字串，
+    // 并且返回第一个匹配字串的第一个字符的位置。
+    // 如果没有找到任何匹配的字串，则返回-1。
+    var str = "Javascript";
+    str.search(/script/); // 返回 script 中s的位置为 4
+    str.search(/j/i); // 设置正则表达是标识i：忽略大小写，则匹配到J，返回位置0
+
+    //search()方法不支持全局搜索，因为会忽略正则表达式参数的标识g，
+    // 并且也忽略了regexp的lastIndex属性，总是从字符串的开始位置进行检索，
+    // 所以它会总是返回str的第一个匹配的位置。
+
+    var str = "javascript is cool";
+    str.search(/s/g); // 返回 javascript 中的s位置4，不会继续检索s 
+
+
+    //----------------------------------replace-----------------------------------------------------
+
+
+    str.replace(regexp, replacement)
+    // replace()方法是执行查找并替换的操作。
+    // 它将正则表达式regexp匹配到的字串，然后用replacement的字符串替换掉字串，
+    // 如果有全局标识g，则替换全部匹配的字串，否则只替换第一个匹配字串。
+
+    // 1.简单替换
+    var str = "javascript";
+    str.replace(/javascript/, 'JavaScript'); // 将字符串javascript替换为JavaScript
+
+    // 2.使用全局表示g进行全局替换
+    var str = "javascript";
+    str.replace(/a/g, 'b'); // 将所有的字母a替换为字母b，返回 jbvbscript
+
+    // 3.使用replacement中的特殊字符替换，在replacement中$字符有特殊的意义
+
+    //1、用子表达式替换：$1、$2等
+    var str = "javascript";
+    str.replace(/(java)(script)/, '$2$1');
+    // 表达式中()就是一个子表达式，$1对应是第一个表达式的内容，即java，$2为script，所以替换结果为：scriptjava 
+    //2、$& 为正值表达式匹配的字串
+    var str = "javascript";
+    str.replace(/java/, '$&-');
+    // 正则表达式通过直接量java来匹配，匹配结果为java，则 $&的值为java，然后用字符串$&-来替换匹配的字串，结果为java-script
+    // 3、 $` $' $$
+    var str = "javascript";
+    str.replace(/ava/, "$`"); // $`为匹配子串ava的左侧文本，则为j，则替换后ava的结果为：jjscript
+    str.replace(/ava/, "$'"); // $'为匹配子串ava的右侧文本，则为script，则替换ava的结果为：jscriptscript
+    str.replace(/ava/, "$$"); // $$为直接量符号，即插入一个$符号，替换结果为：j$script
+
+
+    //4.使用replacement作为函数替换
+
+    // replace的参数replacement可以是函数而不是字符串，
+    // 每个匹配都会调用该函数，它返回的字符串将作为替换的文本使用。
+    // 该函数的第一个参数是整个匹配模式的字符串，
+    // 接下来的参数是与模式中的子表达式匹配的字符串，可以有0个或多个参数。
+    // 接下来的参数是一个整数，声明了匹配在str中出现的位置。最后的参数是str自身。
+
+
+    // match 为匹配整个字符串，即：'abc12345#$*%'
+    // p1 为第一个子表达式，([^\d]*)，匹配0个或多个非数字的字符，即:abc
+    // p2 为第二个子表达式,(\d*)，匹配0个或多个的数字，即：12345
+    // p3 为第三个子表达式，([^\w]*)，匹配0个或匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'，即 #$*%
+    // offset 为模式匹配出现的位置，从第一个字符已经匹配成功，则位置为0
+    // string为字符串本身，即 abc12345#$*%
+    //replacer是一个函数，通过函数返回相应的数据
+    function replacer(match, p1, p2, p3, offset, string) {
+        return [p1, p2, p3].join(' - ');
+    }
+    var newString = 'abc12345#$*%'.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+    // 替换结果为：abc - 12345 - #$*%
+
+
+    //--------------------------------------match-------------------------------------
+
+
+    // match()方法是最常用的String正则表达式方法。
+    // 它唯一的参数就是一个正则表达式或者通过RegExp()构造函数来创建正则表达式，
+    // 返回值是包含了匹配结果的数组。
+    // match()方法中的regexp正则表达式一般又分为两种情况：有设置全局标志g和没有设置全局标志
+
+    // 1.全局匹配
+    var str = "1 plus 2 equals 3";
+    str.match(/\d/g); // 匹配字符串中出现的所有数字，并返回一个数组： [1,2,3]
+
+    // 2.非全局匹配
+    var str = "visit my blog at http://www.example.com";
+    str.match(/(\w+):\/\/([\w.]+)/); // 返回结果：["http://www.example.com", "http", "www.example.com"]
+    // 正则表达式匹配的结果为：http://www.example.com
+    // 第一个子表达式 (\w+)匹配结果：http
+    // 第二个子表达式 ([\w.])匹配结果： www.example.com
+
+
+    //--------------------------------------split-------------------------------------
+
+
+    //split()方法可以把调用它的字符串分解为一个字串数组，使用的分隔符是它的参数。
+    // 参数：
+    // delimiter：字符串或者正则表达式，从该参数指定的地方分割字符串。
+    // limit：指定返回数组的最大长度，如果没有设置该参数，则整个字符串都会被分割。
+
+    //1、 只传一个参数，默认分割整个字符串
+    var str = "a,b,c,d,e";
+    str.split(','); // 返回分割的字符串数组：["a", "b", "c", "d", "e"]
+    //2、传入两个参数
+    var str = "a,b,c,d,e";
+    str.split(',', 3); //指定限定长度，则返回对应的数组：["a", "b", "c"]
+    //3、使用正则表达式匹配，不包含分割字符串
+    var str = "aa44bb55cc66dd";
+    str.split(/\d+/); //通过匹配数字进行分割字符串，但不包含分割的字符串，则返回的结果为：["aa","bb","cc","dd"];
+    //4、使用正则表达式匹配，包含分割字符串
+    var str = "aa44bb55cc66dd";
+    str.split(/(\d+)/); //通过匹配数字进行分割字符串，且分割的字符串是包含在子表达式中，则返回的结果为：["aa", "44", "bb", "55", "cc", "66", "dd"]
+
+
+</script>
+
+</html>
