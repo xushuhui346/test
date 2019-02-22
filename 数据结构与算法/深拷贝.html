@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>深拷贝</title>
+</head>
+<body>
+  
+</body>
+<script>
+//算法的效率是通过算法复杂度来衡量的
+
+// 常见时间复杂度：
+// 1.常数阶O(1);
+// 2.对数阶O(logN);
+// 3.线性阶O(n);
+// 4.线性对数阶O(nlogN);
+// 5.平方阶O(n^2);
+// 6.立方阶O(n^3);
+// 7.K次方阶O(n^k);
+// 8.指数阶O(2^n)
+
+// 一般做算法复杂度分析时，遵循下面的技巧：
+// 1.看看有几重循环，一般来说，一重就是O(n),两重就是O(n^2),以此类推
+// 2.如果有二分，则为O(logN);
+// 3.保留最高项，去除常数项
+
+// 递归分两部分
+// 1.递归主体，就是要循环解决问题的代码
+// 2.递归的跳出条件，递归不能一直递归下去，需要完成一定条件后跳出。
+
+// 深拷贝  
+function deepClone(o1,o2){
+  for(let k in o2){
+    if(typeof o2[k]==='object'){
+      o1[k]= {};
+      deepClone(o1[k],o2[k]);
+    }else{
+      o1[k]=o2[k];
+    }
+  }
+}
+// 测试用例
+let obj = {
+  a:1,
+  b:[1,2,3],
+  c:{}
+}
+let emptyObj = Object.create(null);
+deepClone(emptyObj,obj);
+console.log(emptyObj);
+console.log(emptyObj.a==obj.a);
+console.log(emptyObj.b ==obj.b);
+</script>
+</html>

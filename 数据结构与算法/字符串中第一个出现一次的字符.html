@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>字符串中第一个出现一次的字符</title>
+</head>
+<body>
+  
+</body>
+<script>
+//如果纯算法来做，需要遍历字符串，统计每个字符串出现的次数，然后按照字符串的顺序来找出第一个出现一次的字符，整个过程比较繁琐，如果正则就简单多了
+// 正则
+function find(str){
+  for(var i = 0;i<str.length;i++){
+    let char = str[i];
+    let reg = new RegExp(char,'g')
+    let l = str.match(reg).length
+    if(l ===1){
+      return char
+    }
+  }
+}
+console.log(find('ndownafnwionifnwaohndi'))
+// 可以用indexOf和lastIndexOf 一起解决这个问题
+function find2(str){
+  for(var i = 0;i<str.length;i++){
+    let char = str[i];
+    if(str.indexOf(char)==str.lastIndexOf(char)){
+      return char
+    }
+  }
+}
+console.log(find2('ndownafnwionifnwaohndi'))
+
+</script>
+</html>

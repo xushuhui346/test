@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>纯正则考察</title>
+</head>
+<body>
+  
+</body>
+<script>
+  var str = 'google';
+  var reg = /o/g;
+  // console.log(reg.test(str));  //true
+  // console.log(reg.test(str));  //true
+  // console.log(reg.test(str));  //false
+
+  // 每次查询，lastIndex 会改变，直到false,然后重置lastIndex
+  console.log(reg.test(str),reg.lastIndex);
+  console.log(reg.test(str),reg.lastIndex);
+  console.log(reg.test(str),reg.lastIndex);
+  console.log(reg.test(str),reg.lastIndex);
+</script>
+</html>
